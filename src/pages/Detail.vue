@@ -29,7 +29,13 @@
         </a></li>
       </ul>
     </div>
+     <div>
+       <h1>百度地图</h1>
+       
+       <div id="container" style="height:300px;width:600px;margin:0 auto"></div>
      </div>
+     </div>
+    
 </template>
 <script>
 import server from '../config/server.js'
@@ -53,7 +59,39 @@ export default {
       url:`http://localhost:3000/api/${dataName}/${id}`
     }).then(
       res=>this.data= res.data.data
-    )
+    );
+    let mp = new BMap.Map("container");
+    mp.centerAndZoom(new BMap.Point(121.491490,31.37), 18);
+     mp.enableScrollWheelZoom();
+     var canvasLayer = new BMap.CanvasLayer({
+        update: update
+    });
+
+    function update() {
+        var ctx = this.canvas.getContext("2d");
+
+        if (!ctx) {
+            return;
+        }
+
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+        var temp = {};
+        ctx.fillStyle = "rgba(50, 50, 255, 0.7)";
+        ctx.beginPath();
+        var data = [
+            new BMap.Point(116.297047,39.979542),
+            new BMap.Point(116.321768,39.88748),
+            new BMap.Point(116.494243,39.956539)
+        ];
+
+        for (var i = 0, len = data.length; i < len; i++) {
+            var pixel = mp.pointToPixel(data[i]);
+            ctx.fillRect(pixel.x, pixel.y, 30, 30);
+        }
+    }
+    mp.addOverlay(canvasLayer);
+
   }
     
 }

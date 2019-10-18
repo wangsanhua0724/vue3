@@ -56,7 +56,8 @@
 export default {
   data(){
     return{
-      data:""
+      data:"",
+      user:{}
     }
   },
   //前置守卫和数据预载
@@ -64,8 +65,12 @@ export default {
     axios({
       url:'http://localhost:3000/api/user'
     }).then(
-      res=>console.log(res.data)
-      //res.data.err===0 ? next(_this=>_this.user=res.data.data) : next('/login')
+      res=>res.data.err===0 ? next(_this=>_this.user=res.data.data) : next('/login')
+      
+    //  next() 
+
+      
+      
     )
   }
   // monuted(){
