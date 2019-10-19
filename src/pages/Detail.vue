@@ -61,7 +61,7 @@ export default {
       res=>this.data= res.data.data
     );
     let mp = new BMap.Map("container");
-    mp.centerAndZoom(new BMap.Point(121.491490,31.37), 18);
+    mp.centerAndZoom(new BMap.Point(121.497907,31.384291), 17);
      mp.enableScrollWheelZoom();
      var canvasLayer = new BMap.CanvasLayer({
         update: update
